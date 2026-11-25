@@ -1,0 +1,150 @@
+{
+  "hardware": {
+    "cpu": "12th Gen Intel Core i5-12500H",
+    "ram_gb": 16,
+    "os": "Ubuntu 24.04 Linux",
+    "compiler": "g++ 13.3.0 (-std=c++17 -O3 -march=native -mavx2 -mfma -fopenmp)"
+  },
+  "verified_1x_ef_mnist": {
+    "dataset": "mnist-784-euclidean",
+    "vectors": 60000,
+    "dim": 784,
+    "metric": "L2",
+    "notes": "Single-core pinned query loop (Core 0), 1x ef_search, 3-run average",
+    "cpp": {
+      "10":  {"recall": 0.9655, "qps": 5328.0, "latency_ms": 0.188, "std_pct": 0.54},
+      "20":  {"recall": 0.9918, "qps": 3508.3, "latency_ms": 0.285, "std_pct": 0.35},
+      "40":  {"recall": 0.9983, "qps": 2214.1, "latency_ms": 0.452, "std_pct": 0.28},
+      "80":  {"recall": 0.9995, "qps": 1341.6, "latency_ms": 0.745, "std_pct": 0.51},
+      "160": {"recall": 1.0000, "qps": 834.3,  "latency_ms": 1.199, "std_pct": 0.69},
+      "320": {"recall": 1.0000, "qps": 502.6,  "latency_ms": 1.990, "std_pct": 1.33}
+    },
+    "faiss": {
+      "10":  {"recall": 0.9166, "qps": 20691.0, "latency_ms": 0.048, "std_pct": 3.68},
+      "20":  {"recall": 0.9747, "qps": 13320.8, "latency_ms": 0.075, "std_pct": 4.72},
+      "40":  {"recall": 0.9920, "qps": 8494.7,  "latency_ms": 0.118, "std_pct": 1.56},
+      "80":  {"recall": 0.9983, "qps": 4972.9,  "latency_ms": 0.201, "std_pct": 1.18},
+      "160": {"recall": 0.9997, "qps": 2935.9,  "latency_ms": 0.341, "std_pct": 2.74},
+      "320": {"recall": 0.9999, "qps": 1630.0,  "latency_ms": 0.613, "std_pct": 0.49}
+    }
+  },
+  "six_dataset_suite_baseline": {
+    "notes": "Measured across 6 datasets (M=16, efConstruction=200, taskset -c 0, 3-run mean) on the earlier two-phase oversampled SQ8 traversal configuration",
+    "datasets": {
+      "mnist-784-euclidean": {
+        "vectors": 60000, "dim": 784, "metric": "L2",
+        "cpp": {
+          "10": {"recall": 0.9537, "qps": 4172.7},
+          "20": {"recall": 0.9837, "qps": 2630.6},
+          "40": {"recall": 0.9934, "qps": 1598.3},
+          "80": {"recall": 0.9984, "qps": 963.9},
+          "160": {"recall": 0.9993, "qps": 571.9},
+          "320": {"recall": 0.9998, "qps": 338.2}
+        },
+        "faiss": {
+          "10": {"recall": 0.9261, "qps": 23931.4},
+          "20": {"recall": 0.9784, "qps": 15640.6},
+          "40": {"recall": 0.9944, "qps": 9581.6},
+          "80": {"recall": 0.9989, "qps": 5712.4},
+          "160": {"recall": 0.9995, "qps": 3292.8},
+          "320": {"recall": 0.9998, "qps": 1847.1}
+        }
+      },
+      "fashion-mnist-784-euclidean": {
+        "vectors": 60000, "dim": 784, "metric": "L2",
+        "cpp": {
+          "10": {"recall": 0.9620, "qps": 4687.8},
+          "20": {"recall": 0.9890, "qps": 3011.5},
+          "40": {"recall": 0.9971, "qps": 1872.6},
+          "80": {"recall": 0.9998, "qps": 1160.0},
+          "160": {"recall": 0.9998, "qps": 705.8},
+          "320": {"recall": 0.9999, "qps": 423.0}
+        },
+        "faiss": {
+          "10": {"recall": 0.9319, "qps": 25397.1},
+          "20": {"recall": 0.9802, "qps": 16783.5},
+          "40": {"recall": 0.9947, "qps": 10438.1},
+          "80": {"recall": 0.9981, "qps": 6300.3},
+          "160": {"recall": 0.9992, "qps": 3708.5},
+          "320": {"recall": 0.9996, "qps": 2139.2}
+        }
+      },
+      "sift-128-euclidean": {
+        "vectors": 1000000, "dim": 128, "metric": "L2",
+        "cpp": {
+          "10": {"recall": 0.4428, "qps": 7974.5},
+          "20": {"recall": 0.5243, "qps": 4664.8},
+          "40": {"recall": 0.5983, "qps": 2605.3},
+          "80": {"recall": 0.6685, "qps": 1380.3},
+          "160": {"recall": 0.7296, "qps": 755.5},
+          "320": {"recall": 0.7697, "qps": 428.2}
+        },
+        "faiss": {
+          "10": {"recall": 0.7157, "qps": 39921.5},
+          "20": {"recall": 0.8457, "qps": 25325.2},
+          "40": {"recall": 0.9337, "qps": 14865.0},
+          "80": {"recall": 0.9775, "qps": 8182.1},
+          "160": {"recall": 0.9936, "qps": 4342.1},
+          "320": {"recall": 0.9982, "qps": 2206.7}
+        }
+      },
+      "glove-25-angular": {
+        "vectors": 1183514, "dim": 25, "metric": "Angular",
+        "cpp": {
+          "10": {"recall": 0.8772, "qps": 11843.8},
+          "20": {"recall": 0.9387, "qps": 6739.3},
+          "40": {"recall": 0.9755, "qps": 3647.6},
+          "80": {"recall": 0.9918, "qps": 1919.5},
+          "160": {"recall": 0.9982, "qps": 1008.0},
+          "320": {"recall": 0.9996, "qps": 533.3}
+        },
+        "faiss": {
+          "10": {"recall": 0.7249, "qps": 64920.5},
+          "20": {"recall": 0.8482, "qps": 39645.2},
+          "40": {"recall": 0.9315, "qps": 22900.5},
+          "80": {"recall": 0.9753, "qps": 11832.7},
+          "160": {"recall": 0.9933, "qps": 6001.6},
+          "320": {"recall": 0.9988, "qps": 3073.5}
+        }
+      },
+      "nytimes-256-angular": {
+        "vectors": 290000, "dim": 256, "metric": "Angular",
+        "cpp": {
+          "10": {"recall": 0.6093, "qps": 5778.8},
+          "20": {"recall": 0.6842, "qps": 3474.0},
+          "40": {"recall": 0.7073, "qps": 1844.2},
+          "80": {"recall": 0.7358, "qps": 993.6},
+          "160": {"recall": 0.7415, "qps": 524.6},
+          "320": {"recall": 0.7391, "qps": 276.6}
+        },
+        "faiss": {
+          "10": {"recall": 0.6082, "qps": 23466.5},
+          "20": {"recall": 0.7258, "qps": 14288.0},
+          "40": {"recall": 0.8087, "qps": 8462.0},
+          "80": {"recall": 0.8600, "qps": 4854.0},
+          "160": {"recall": 0.8910, "qps": 2682.6},
+          "320": {"recall": 0.9173, "qps": 1416.4}
+        }
+      },
+      "cifar-100-euclidean": {
+        "vectors": 50000, "dim": 3072, "metric": "L2",
+        "cpp": {
+          "10": {"recall": 0.6916, "qps": 611.8},
+          "20": {"recall": 0.8322, "qps": 394.1},
+          "40": {"recall": 0.9291, "qps": 252.2},
+          "80": {"recall": 0.9736, "qps": 158.8},
+          "160": {"recall": 0.9899, "qps": 98.4},
+          "320": {"recall": 0.9950, "qps": 60.7}
+        },
+        "faiss": {
+          "10": {"recall": 0.8069, "qps": 4445.8},
+          "20": {"recall": 0.9037, "qps": 2955.8},
+          "40": {"recall": 0.9571, "qps": 1843.4},
+          "80": {"recall": 0.9801, "qps": 1112.3},
+          "160": {"recall": 0.9891, "qps": 669.8},
+          "320": {"recall": 0.9931, "qps": 403.1}
+        }
+      }
+    }
+  }
+}
