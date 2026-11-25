@@ -1,0 +1,32 @@
+# Build artifacts & compiled binaries
+bin/
+build/
+*.o
+*.a
+*.so
+*.bin
+*.log
+*.out
+
+# Datasets & raw archives (download via scripts/download_datasets.py)
+dataset/*.hdf5
+dataset/*.fvecs
+dataset/*.ivecs
+dataset/*.npy
+dataset/*.tar.gz
+dataset/cifar-100-python/
+dataset/sift/
+dataset/real/
+
+# Python environments & caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Editor / OS metadata
+.vscode/
+.idea/
+*.swp
+.DS_Store
